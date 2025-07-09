@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart</title>
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #FFE5E5;
+      color: #333;
+      line-height: 1.4;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    img { max-width: 100%; display: block; }
+
+   
+    .cart-wrapper {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      max-width: 800px;
+      width: 100%;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h1 span { color: #3CAEA3; }
+
+   
+    .cart-items { list-style: none; }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      background: #fafafa;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .cart-item:last-child { margin-bottom: 0; }
+
+    .item-img {
+      width: 80px; height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+
+    .item-details { flex: 1; }
+    .item-details h3 { margin-bottom: 6px; font-size: 1.1rem; }
+    .item-details p  { font-size: .9rem; color: #666; }
+
+    .item-price {
+      font-size: 1.1rem;
+      margin: 0 20px;
+      white-space: nowrap;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      background: #FF6B6B;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .qty-control button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      width: 32px; height: 32px;
+      cursor: pointer;
+    }
+    .qty-control input {
+      width: 40px;
+      border: none;
+      text-align: center;
+      font-size: 1rem;
+      color: #fff;
+      background: transparent;
+    }
+
+    .remove-btn {
+      margin-left: 20px;
+      cursor: pointer;
+      color: #FF6B6B;
+      font-size: 1.2rem;
+    }
+
+    
+    .cart-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .coupon-box {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .coupon-box input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px 0 0 8px;
+      font-size: .95rem;
+    }
+    .coupon-box button {
+      padding: 10px 16px;
+      border: none;
+      background: #FF6B6B;
+      color: #fff;
+      font-size: .95rem;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+
+    .total-box {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 20px;
+      min-width: 200px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .total-box p {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    .total-box p.total {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .checkout-btn {
+      display: block;
+      margin-top: 15px;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      background: #FF6B6B;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="cart-wrapper">
+    <h1>Your <span>Cart</span></h1>
+
+    <ul class="cart-items">
+      <li class="cart-item" data-price="250">
+        <div class="item-img">
+          <img src="images/salad.jpg" alt="Vegetable Salad">
+        </div>
+        <div class="item-details">
+          <h3>Vegetable Salad</h3>
+          <p>Fresh & healthy greens</p>
+        </div>
+        <div class="item-price">₹250</div>
+        <div class="qty-control">
+          <button class="dec">−</button>
+          <input type="text" value="1" readonly>
+          <button class="inc">+</button>
+        </div>
+        <div class="remove-btn" title="Remove">🗑️</div>
+      </li>
+
+      <li class="cart-item" data-price="320">
+        <div class="item-img">
+          <img src="images/burger.png" alt="Classic Burger">
+        </div>
+        <div class="item-details">
+          <h3>Classic Burger</h3>
+          <p>Beef patty, cheese & lettuce</p>
+        </div>
+        <div class="item-price">₹320</div>
+        <div class="qty-control">
+          <button class="dec">−</button>
+          <input type="text" value="1" readonly>
+          <button class="inc">+</button>
+        </div>
+        <div class="remove-btn" title="Remove">🗑️</div>
+      </li>
+
+      <li class="cart-item" data-price="280">
+        <div class="item-img">
+          <img src="images/pasta.jpeg" alt="Tomato Pasta">
+        </div>
+        <div class="item-details">
+          <h3>Tomato Pasta</h3>
+          <p>Rich tomato & basil sauce</p>
+        </div>
+        <div class="item-price">₹280</div>
+        <div class="qty-control">
+          <button class="dec">−</button>
+          <input type="text" value="1" readonly>
+          <button class="inc">+</button>
+        </div>
+        <div class="remove-btn" title="Remove">🗑️</div>
+      </li>
+
+      <li class="cart-item" data-price="350">
+        <div class="item-img">
+          <img src="images/sushi.jpg" alt="Salmon Sushi">
+        </div>
+        <div class="item-details">
+          <h3>Salmon Sushi</h3>
+          <p>Fresh salmon rolls</p>
+        </div>
+        <div class="item-price">₹350</div>
+        <div class="qty-control">
+          <button class="dec">−</button>
+          <input type="text" value="1" readonly>
+          <button class="inc">+</button>
+        </div>
+        <div class="remove-btn" title="Remove">🗑️</div>
+      </li>
+    </ul>
+
+    <div class="cart-footer">
+      <div class="coupon-box">
+        <input type="text" placeholder="Coupon Code">
+        <button>Apply Coupon →</button>
+      </div>
+      <div class="total-box">
+        <p>Subtotal <span id="subtotal">₹0</span></p>
+        <p class="total">Total <span id="total">₹0</span></p>
+        <a href="checkout.html" class="checkout-btn">Proceed To Checkout →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateTotals() {
+      let subtotal = 0;
+      const cart = [];
+
+      document.querySelectorAll('.cart-item').forEach(item => {
+        const price = +item.dataset.price;
+        const qty   = +item.querySelector('input').value;
+        const name  = item.querySelector('h3').textContent;
+        subtotal   += price * qty;
+        cart.push({ name, price, qty });
+      });
+
+      document.getElementById('subtotal').textContent = '₹' + subtotal;
+      document.getElementById('total').textContent    = '₹' + subtotal;
+
+      
+      localStorage.setItem('foodCart', JSON.stringify(cart));
+    }
+
+    
+    document.querySelectorAll('.qty-control').forEach(ctrl => {
+      ctrl.querySelector('.dec').addEventListener('click', () => {
+        const inp = ctrl.querySelector('input');
+        if (+inp.value > 1) inp.value = +inp.value - 1;
+        updateTotals();
+      });
+      ctrl.querySelector('.inc').addEventListener('click', () => {
+        const inp = ctrl.querySelector('input');
+        inp.value = +inp.value + 1;
+        updateTotals();
+      });
+    });
+
+   
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.cart-item').remove();
+        updateTotals();
+      });
+    });
+
+    
+    updateTotals();
+  </script>
+</body>
+</html>

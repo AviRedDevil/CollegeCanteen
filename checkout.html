@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #FFE5E5;
+      color: #333;
+      line-height: 1.4;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    a { text-decoration: none; }
+
+    
+    .checkout-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 40px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      grid-column: 1 / -1;
+    }
+    h1 span { color: #3CAEA3; }
+
+    
+    .form-section {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .form-section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 15px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .9rem;
+      color: #555;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: .95rem;
+    }
+
+    
+    .summary {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .summary h2 {
+      font-size: 1.25rem;
+      margin-bottom: 15px;
+    }
+    .summary .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: .95rem;
+    }
+    .summary .summary-item.total {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+    .pay-btn {
+      margin-top: 20px;
+      padding: 12px;
+      text-align: center;
+      background: #FF6B6B;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    
+    @media (max-width: 800px) {
+      .checkout-wrapper { grid-template-columns: 1fr; }
+      .summary { margin-top: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-wrapper">
+    <h1>Checkout <span>Now</span></h1>
+
+    
+    <div class="form-section">
+      <h2>Billing & Shipping</h2>
+      <div class="form-group">
+        <label for="fname">First Name</label>
+        <input id="fname" type="text" placeholder="John">
+      </div>
+      <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input id="lname" type="text" placeholder="Doe">
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input id="email" type="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label for="address">Street Address</label>
+        <input id="address" type="text" placeholder="123 Main St">
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input id="city" type="text" placeholder="Kolkata">
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <select id="state">
+          <option>-- Select State --</option>
+          <option>Mumbai</option>
+          <option>Delhi</option>
+          <option>Bangalore</option>
+          <option>West Bengal</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="zip">PIN Code</label>
+        <input id="zip" type="text" placeholder="400001">
+      </div>
+    </div>
+
+    
+    <div class="summary">
+      <h2>Order Summary</h2>
+
+      
+      <div id="items-container"></div>
+
+      
+      <div class="summary-item total">
+        <span>Total</span>
+        <span id="grand-total">₹0</span>
+      </div>
+
+      
+      <div class="form-section" style="margin-top: 20px; box-shadow: none; padding: 0;">
+        <h2>Payment Method</h2>
+        <div class="form-group">
+          <select>
+            <option>-- Select Payment --</option>
+            <option>Credit / Debit Card</option>
+            <option>Net Banking</option>
+            <option>UPI</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cardnum">Card Number</label>
+          <input id="cardnum" type="text" placeholder="xxxx-xxxx-xxxx-xxxx">
+        </div>
+        <div class="form-group" style="display: flex; gap: 10px;">
+          <div style="flex:1;">
+            <label for="exp">Expiry</label>
+            <input id="exp" type="text" placeholder="MM/YY">
+          </div>
+          <div style="flex:1;">
+            <label for="cvv">CVV</label>
+            <input id="cvv" type="text" placeholder="123">
+          </div>
+        </div>
+      </div>
+
+      <div class="pay-btn">Place Order →</div>
+    </div>
+  </div>
+
+  <script>
+    
+    const cart = JSON.parse(localStorage.getItem('foodCart') || '[]');
+    const container = document.getElementById('items-container');
+    let grandTotal = 0;
+
+    cart.forEach(item => {
+      const lineTotal = item.price * item.qty;
+      grandTotal += lineTotal;
+
+      const row = document.createElement('div');
+      row.className = 'summary-item';
+      row.innerHTML = `
+        <span>${item.name} × ${item.qty}</span>
+        <span>₹${lineTotal}</span>
+      `;
+      container.appendChild(row);
+    });
+
+    
+    document.getElementById('grand-total').textContent = '₹' + grandTotal;
+  </script>
+</body>
+</html>
