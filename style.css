@@ -49,12 +49,14 @@ li i{
 
 #hero h2{
     display: flex;
-    font-size: 36px;
+    font-size: 60px;
     padding: 18px;
     text-align: center;
     color: white;
     justify-content: center;
+    align-items: center;
     padding-top:30px;
+    height: 30vw;
 }
 #menu{
     text-align: center;
@@ -93,12 +95,14 @@ footer .col{
 footer p{
     font-size: 13px;
     margin: 0 0 8px 0;
+   
 }
 footer a{
     text-decoration: none;
     color: #222;
     font-size: 13px;
     margin-bottom: 10px;
+    
 }
 footer .follow{
     margin-top: 20px;
@@ -116,4 +120,46 @@ footer .copyright{
     text-align: center;
     color: #000;
     font-size: 18px;
+}
+.col h4{
+    margin-bottom: 10px;
+}
+.Payment{
+    width: 210px;
+    height: 100px; ;
+}
+#discount{
+    display: flex;
+    justify-content: space-between;
+    background-repeat: repeat;
+    background-size: cover;
+    background-image: url(image/bgg1.png);
+}
+.burger{
+    height: 150px;
+}
+.btn1{
+    padding: 15px;
+    border: none;
+    outline: none;
+    margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+
+}
+.txtbtn{
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 150px;
+    padding: 20px;
+}
+.btn1:hover{
+    color:white;
+    background-color: rgb(211, 182, 89);
+}
+.text{
+    color: white;
+    font-size: 36px;
 }
